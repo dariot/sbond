@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-const port = 3000
-app.get('/', (req, res) => res.send('Hello World!'))
+const port = 3000;
+app.get('/', (req, res) => res.send('Hello World!'));
 
 function toDate(dateStr) {
   var parts = dateStr.split("/");
@@ -33,7 +33,7 @@ function toDate(dateStr) {
 }
 
 function testOracle() {
-    MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+    MongoClient.connect('mongodb://localhost:27017', {useNewUrlParser: true}, function (err, client) {
         if (err) throw err;
 
         var db = client.db('smartbond');
@@ -57,7 +57,7 @@ function testOracle() {
         function computeBondValues(err, result) {
             if (err) throw err;
 
-            var i, midZeroSwap, startDate, endDate, discountFactor, dayCount;
+            var i, midZeroSwap, startDate, endDate, discountFactor, dayCount, forwardRate;
             var factor = 0.0028;
             for (i = 0; i < result.length; i++) {
                 midZeroSwap = parseFloat(result[i].mid_zero_swap) / 100;
@@ -70,28 +70,41 @@ function testOracle() {
                 var diff = new DateDiff(endDate, startDate);
                 dayCount = diff.days() * factor;
                 //dayCount = parseFloat('0.252054794520548');
+                result[i].day_count = dayCount;
 
                 /* discount factor */
                 discountFactor = Math.pow(1 / (1+midZeroSwap), dayCount);
+                result[i].discount_factor = discountFactor;
 
                 /* forward rate */
                 if (i > 0) {
-                    forward_rate = ((result[i - 1].discount_factor / discountFactor) - 1) * (365 / (diff.days()));
-                    console.log(forward_rate);
+                    forwardRate = ((result[i - 1].discount_factor / discountFactor) - 1) * (365 / (diff.days()));
                 }
+                
+                db.collection('DATI_ORACOLO').updateOne(
+                    {id: result[i].id},
+                    {$set: {
+                            day_count: dayCount,
+                            discount_factor: discountFactor,
+                            forward_rate: forwardRate
+                        }
+                    },
+                    {upsert: true}
+                );
             }
         }
 
         function insertCallback(err, res) {
             if (err) throw err;
 
-            db.collection('DATI_ORACOLO').find().toArray(computeBondValues;
+            db.collection('DATI_ORACOLO').find().toArray(computeBondValues);
         }
 
         db.collection('DATI_ORACOLO').deleteMany();
         db.collection('DATI_ORACOLO').insertMany([riga01, riga02], insertCallback);
     });
 }
+testOracle();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
