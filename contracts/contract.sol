@@ -3,19 +3,9 @@ pragma solidity ^0.5.2;
 contract SmartBond {
 
 	address payable public creator;
-	string  idSM;
-	string  beneficiarioNome;
-	string  beneficiarioCognome;
-	string  beneficiarioCodiceFiscale;
 	address payable beneficiarioAddress;
-	uint256 dataInizio;
-	uint256 dataFine;
-	uint    valNominale;
-	uint    valCedola;
-	uint256 ethBalance;
-	string  idCreatoreSM;
-	string  oracoloURL;
-	bool    runStatus;
+	uint ethBalance = 0;
+	bool runStatus = true;
     
     // trasferimento ETH
     
@@ -35,8 +25,8 @@ contract SmartBond {
     }
     
     // ritorna l'ammontare di ETH presenti sullo SmartBond
-    function getEthBalance() public returns(uint) {
-        require(msg.sender == creator);
+    function getEthBalance() public view returns(uint) {
+		require(msg.sender == creator);
         return ethBalance;
     }
     

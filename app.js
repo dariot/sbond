@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var MongoClient = require('mongodb').MongoClient;
 var DateDiff = require('date-diff');
+var data = require('./data/data.json');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -26,6 +27,8 @@ app.use('/users', usersRouter);
 
 const port = 3000;
 app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 function toDate(dateStr) {
   var parts = dateStr.split("/");
@@ -69,11 +72,10 @@ function testOracle() {
                 endDate = toDate(endDate);
                 var diff = new DateDiff(endDate, startDate);
                 dayCount = diff.days() * factor;
-                //dayCount = parseFloat('0.252054794520548');
                 result[i].day_count = dayCount;
 
                 /* discount factor */
-                discountFactor = Math.pow(1 / (1+midZeroSwap), dayCount);
+                discountFactor = Math.pow(1 / (1 + midZeroSwap), dayCount);
                 result[i].discount_factor = discountFactor;
 
                 /* forward rate */
@@ -104,7 +106,11 @@ function testOracle() {
         db.collection('DATI_ORACOLO').insertMany([riga01, riga02], insertCallback);
     });
 }
-testOracle();
+//testOracle();
+
+app.post("/", function (req, res) {
+    
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
