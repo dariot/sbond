@@ -8,19 +8,19 @@ block content
             select(name='types', id='types')
                 option FixedRB
                 option FRN
-        div.form-group
+        div.form-group(id='descriptionFG')
             label(for='description') Description:
             input#description.form-control(type='text', name='description')
-        div.form-group
+        div.form-group(id='issuerSpreadFG')
             label(for='issuerSpread') Issuer Spread:
             input#issuerSpread.form-control(type='text', name='issuerSpread')
-        div.form-group
+        div.form-group(id='valuationDateFG')
             label(for='valuationDate') Valuation Date:
             input#valuationDate.form-control(type='date' name='valuationDate')
-        div.form-group
+        div.form-group(id='marketSpreadFG')
             label(for='marketSpread') Market Spread:
             input#marketSpread.form-control(type='text' name='marketSpread')
-        div.form-group
+        div.form-group(id='frequencyFG')
             label(for='frequency') Frequency:
             select(name='frequencies', id='')
                 option 30
@@ -30,23 +30,23 @@ block content
                 option 150
                 option 180
                 option 360
-        div.form-group
+        div.form-group(id='notionalFG')
             label(for='notional') Notional:
             input#notional.form-control(type='text' name='notional')
-        div.form-group
+        div.form-group(id='indexationFG')
             label(for='indexation') Indexation:
             input#indexation.form-control(type='text' name='indexation')
-        div.form-group
+        div.form-group(id='couponFG')
             label(for='coupon') Coupon:
             input#coupon.form-control(type='text' name='coupon')
-        div.form-group
+        div.form-group(id='conventionFG')
             label(for='convention') Convention:
             select(name='conventions', id='')
                 option(value="0,00278") ACT/360
                 option(value="0,00275") ACT/364
                 option(value="0,00274") ACT/365
                 option(value="0,00273") ACT/366
-        div.form-group
+        div.form-group(id='maturityFG')
             label(for='maturity') Maturity:
             input#maturity.form-control(type='date' name='maturity')
             
