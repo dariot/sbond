@@ -80,6 +80,19 @@ $(document).ready(function() {
         });
     });
     
+    $('#calculate').click(function(e) {
+        e.preventDefault();
+        
+        var valuationDate = $('#valuationDate').val();
+        var frequency = $('#frequency').val();
+        var faceValue = $('#faceValue').val();
+        var coupon = $('#coupon').val();
+        var convention = $('#convention').val();
+        var maturity = $('#maturity').val();
+        
+        
+    });
+    
     function setFieldsVisibility(type) {
         hideFields();
         if (type === 'FixedRB') {

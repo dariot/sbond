@@ -30,6 +30,9 @@ block content
                 option 150
                 option 180
                 option 360
+        div.form-group(id='faceValueFG')
+            label(for='faceValue') Face Value:
+            input#notional.form-control(type='text' name='faceValue')        
         div.form-group(id='notionalFG')
             label(for='notional') Notional:
             input#notional.form-control(type='text' name='notional')
@@ -37,7 +40,7 @@ block content
             label(for='indexation') Indexation:
             input#indexation.form-control(type='text' name='indexation')
         div.form-group(id='couponFG')
-            label(for='coupon') Coupon:
+            label(for='coupon') Coupon (%):
             input#coupon.form-control(type='text' name='coupon')
         div.form-group(id='conventionFG')
             label(for='convention') Convention:
@@ -49,5 +52,11 @@ block content
         div.form-group(id='maturityFG')
             label(for='maturity') Maturity:
             input#maturity.form-control(type='date' name='maturity')
-            
+        
+        div
+        
+        button#calculate Calculate Smart Bond Price
+        
+        div
+        
         button#deploy Deploy Smart Bond
