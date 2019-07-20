@@ -80,17 +80,36 @@ $(document).ready(function() {
         });
     });
     
+    function toDate(dateStr) {
+        var parts = dateStr.split('-');
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    
+    function computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity) {
+
+        var i, startDate, endDate, swapRate, discountFactor, cashFlow, dayCount, forwardRate;
+        
+        /* first iteration */
+        startDate = toDate(valuationDate);
+        endDate = new Date();
+        endDate.setTime(startDate.getTime() + frequency * 86400000);
+        
+        maturity = toDate(maturity);
+        
+        console.log((maturity.getTime() - startDate.getTime()) / 86400000);
+    }
+    
     $('#calculate').click(function(e) {
         e.preventDefault();
         
         var valuationDate = $('#valuationDate').val();
-        var frequency = $('#frequency').val();
+        var frequency = $('#frequencies').val();
         var faceValue = $('#faceValue').val();
         var coupon = $('#coupon').val();
-        var convention = $('#convention').val();
+        var convention = $('#conventions').val();
         var maturity = $('#maturity').val();
         
-        
+        var value = computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
     });
     
     function setFieldsVisibility(type) {

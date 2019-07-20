@@ -22,14 +22,14 @@ block content
             input#marketSpread.form-control(type='text' name='marketSpread')
         div.form-group(id='frequencyFG')
             label(for='frequency') Frequency:
-            select(name='frequencies', id='')
-                option 30
-                option 60
-                option 90
-                option 120
-                option 150
-                option 180
-                option 360
+            select(name='frequencies', id='frequencies')
+                option(value="30") 1m
+                option(value="60") 2m
+                option(value="90") 3m
+                option(value="120") 4m
+                option(value="150") 5m
+                option(value="180") 6m
+                option(value="360") 12m
         div.form-group(id='faceValueFG')
             label(for='faceValue') Face Value:
             input#notional.form-control(type='text' name='faceValue')        
@@ -44,7 +44,7 @@ block content
             input#coupon.form-control(type='text' name='coupon')
         div.form-group(id='conventionFG')
             label(for='convention') Convention:
-            select(name='conventions', id='')
+            select(name='conventions', id='conventions')
                 option(value="0,00278") ACT/360
                 option(value="0,00275") ACT/364
                 option(value="0,00274") ACT/365
