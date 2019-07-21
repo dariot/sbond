@@ -137,7 +137,7 @@ $(document).ready(function() {
     }
     
     function computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity) {
-        var i, startDate, endDate, yearFraction, swapRate, discountFactor, cashFlow, dayCount, forwardRate, logDebug = '';
+        var i, startDate, endDate, yearFraction = 0, swapRate, discountFactor, cashFlow, dayCount, forwardRate, logDebug = '';
         
         frequency = Number.parseFloat(frequency);
         faceValue = Number.parseFloat(faceValue);
@@ -154,10 +154,20 @@ $(document).ready(function() {
         var numReps = Math.ceil(numDays / frequency);
         var bondValue = 0;
         for (i = 0; i < numReps; i++) {
-            yearFraction = frequency * (i + 1) / convention;
             if (endDate > maturity) {
                 endDate = maturity;
             }
+            
+            yearFraction += ((endDate.getTime() - startDate.getTime()) / 86400000) / convention;
+            
+            /*
+            if (i < numReps - 1) {
+                yearFraction = frequency * (i + 1) / convention;
+            } else {
+                yearFraction = frequency * (i + 1) / convention;
+            }
+            */
+            
             swapRate = getSwapRate(endDate);
             discountFactor = 1 / Math.pow(1 + swapRate, yearFraction);
             if (i < numReps - 1) {
