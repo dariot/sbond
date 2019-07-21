@@ -32,7 +32,7 @@ block content
                 option(value="360") 12m
         div.form-group(id='faceValueFG')
             label(for='faceValue') Face Value:
-            input#notional.form-control(type='text' name='faceValue')        
+            input#faceValue.form-control(type='text' name='faceValue')        
         div.form-group(id='notionalFG')
             label(for='notional') Notional:
             input#notional.form-control(type='text' name='notional')
@@ -45,10 +45,10 @@ block content
         div.form-group(id='conventionFG')
             label(for='convention') Convention:
             select(name='conventions', id='conventions')
-                option(value="0,00278") ACT/360
-                option(value="0,00275") ACT/364
-                option(value="0,00274") ACT/365
-                option(value="0,00273") ACT/366
+                option(value="360") ACT/360
+                option(value="364") ACT/364
+                option(value="365") ACT/365
+                option(value="366") ACT/366
         div.form-group(id='maturityFG')
             label(for='maturity') Maturity:
             input#maturity.form-control(type='date' name='maturity')
@@ -60,3 +60,6 @@ block content
         div
         
         button#deploy Deploy Smart Bond
+        
+        div
+        div#debug

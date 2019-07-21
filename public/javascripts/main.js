@@ -87,7 +87,11 @@ $(document).ready(function() {
     
     function computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity) {
 
-        var i, startDate, endDate, swapRate, discountFactor, cashFlow, dayCount, forwardRate;
+        var i, startDate, endDate, yearFraction, swapRate, discountFactor, cashFlow, dayCount, forwardRate, logDebug = '';
+        
+        frequency = Number.parseFloat(frequency);
+        faceValue = Number.parseFloat(faceValue);
+        coupon = Number.parseFloat(coupon);
         
         /* first iteration */
         startDate = toDate(valuationDate);
@@ -96,7 +100,24 @@ $(document).ready(function() {
         
         maturity = toDate(maturity);
         
-        console.log((maturity.getTime() - startDate.getTime()) / 86400000);
+        var numDays = (maturity.getTime() - startDate.getTime()) / 86400000;
+        var numReps = Math.ceil(numDays / frequency);
+        var bondValue = 0;
+        for (i = 0; i < numReps; i++) {
+            yearFraction = frequency * (i + 1) / convention;
+            swapRate = -0.004736305;
+            discountFactor = 1 / Math.pow(1 + swapRate, yearFraction);
+            if (i < numReps - 1) {
+                cashFlow = faceValue * (coupon / 100);
+            } else {
+                cashFlow = faceValue;
+            }
+            
+            bondValue += cashFlow * discountFactor;
+            
+            logDebug += yearFraction + ', ' + swapRate + ', ' + discountFactor + ', ' + cashFlow + ', <b>' + bondValue + '</b><div></div>';
+        }
+        $('#debug').html(logDebug + 'Final Bond Value: <b>' + bondValue + '</b>');
     }
     
     $('#calculate').click(function(e) {
