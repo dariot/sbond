@@ -136,7 +136,7 @@ $(document).ready(function() {
         return outputSwapRate;
     }
     
-    function computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity) {
+    function computeFixedBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity) {
         var i, startDate, endDate, yearFraction = 0, swapRate, discountFactor, cashFlow, dayCount, forwardRate, logDebug = '';
         
         frequency = Number.parseFloat(frequency);
@@ -158,17 +158,8 @@ $(document).ready(function() {
                 endDate = maturity;
             }
             
-            yearFraction += ((endDate.getTime() - startDate.getTime()) / 86400000) / convention;
-            
-            /*
-            if (i < numReps - 1) {
-                yearFraction = frequency * (i + 1) / convention;
-            } else {
-                yearFraction = frequency * (i + 1) / convention;
-            }
-            */
-            
-            swapRate = getSwapRate(endDate);
+            yearFraction += ((endDate.getTime() - startDate.getTime()) / 86400000) / convention;            
+            swapRate = getSwapRate(endDate) / 100;
             discountFactor = 1 / Math.pow(1 + swapRate, yearFraction);
             if (i < numReps - 1) {
                 cashFlow = faceValue * (coupon / 100);
@@ -189,6 +180,7 @@ $(document).ready(function() {
     $('#calculate').click(function(e) {
         e.preventDefault();
         
+        var type = $('#types').val();
         var valuationDate = $('#valuationDate').val();
         var frequency = $('#frequencies').val();
         var faceValue = $('#faceValue').val();
@@ -196,7 +188,11 @@ $(document).ready(function() {
         var convention = $('#conventions').val();
         var maturity = $('#maturity').val();
         
-        var value = computeBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
+        if (type === 'FixedRB') {
+            computeFixedBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
+        } else if (type === 'FRN') {
+            computeFloatingBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
+        }
     });
     
     function setFieldsVisibility(type) {
