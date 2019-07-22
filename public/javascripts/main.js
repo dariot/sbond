@@ -17,7 +17,7 @@ $(document).ready(function() {
         $('#frequencyFG').show();
         $('#notionalFG').show();
         $('#indexationFG').show();
-        $('#couponFG').show();
+        $('#couponFloatingFG').show();
         $('#conventionFG').show();
         $('#maturityFG').show();
     }
@@ -29,9 +29,11 @@ $(document).ready(function() {
         $('#faceValueFG').hide();
         $('#marketSpreadFG').hide();
         $('#frequencyFG').hide();
+        $('#faceValueFG').hide();
         $('#notionalFG').hide();
         $('#indexationFG').hide();
         $('#couponFG').hide();
+        $('#couponFloatingFG').hide();
         $('#conventionFG').hide();
         $('#maturityFG').hide();
     }    
@@ -177,13 +179,60 @@ $(document).ready(function() {
         $('#debug').html(logDebug + 'Final Bond Value: <b>' + bondValue + '</b>');
     }
     
+    function computeFloatingBondValue(description, issuerSpread, valuationDate, marketSpread, frequency, faceValue, indexation, coupon, convention, maturity) {
+        var i, startDate, endDate, yearFraction = 0, swapRate, discountFactor, cashFlow, dayCount, forwardRate, logDebug = '';
+        
+        issuerSpread = Number.parseFloat(issuerSpread);
+        frequency = Number.parseFloat(frequency);
+        faceValue = Number.parseFloat(faceValue);
+        coupon = Number.parseFloat(coupon);
+        
+        /* first iteration */
+        startDate = toDate(valuationDate);
+        endDate = new Date();
+        endDate.setTime(startDate.getTime() + frequency * 86400000);
+        
+        maturity = toDate(maturity);
+        
+        var numDays = (maturity.getTime() - startDate.getTime()) / 86400000;
+        var numReps = Math.ceil(numDays / frequency);
+        var bondValue = 0;
+        for (i = 0; i < numReps; i++) {
+            if (endDate > maturity) {
+                endDate = maturity;
+            }
+            
+            yearFraction += ((endDate.getTime() - startDate.getTime()) / 86400000) / convention;            
+            swapRate = getSwapRate(endDate) / 100;
+            discountFactor = 1 / Math.pow(1 + swapRate, yearFraction);
+            if (i < numReps - 1) {
+                cashFlow = (issuerSpread + swapRate) * 1000;
+            } else {
+                cashFlow = notional;
+            }
+            
+            bondValue += cashFlow * discountFactor;
+            
+            startDate = endDate;
+            endDate.setTime(startDate.getTime() + frequency * 86400000);
+            
+            logDebug += yearFraction + ', ' + swapRate + ', ' + discountFactor + ', ' + cashFlow + ', <b>' + bondValue + '</b><div></div>';
+        }
+        $('#debug').html(logDebug + 'Final Bond Value: <b>' + bondValue + '</b>');
+    }
+    
     $('#calculate').click(function(e) {
         e.preventDefault();
         
         var type = $('#types').val();
+        var description = $('#description').val();
+        var issuerSpread = $('#issuerSpread').val();
         var valuationDate = $('#valuationDate').val();
         var frequency = $('#frequencies').val();
         var faceValue = $('#faceValue').val();
+        var marketSpread = $('#marketSpread').val();
+        var frequency = $('#frequencies').val();
+        var indexation = $('#indexation').val();
         var coupon = $('#coupon').val();
         var convention = $('#conventions').val();
         var maturity = $('#maturity').val();
@@ -191,12 +240,28 @@ $(document).ready(function() {
         if (type === 'FixedRB') {
             computeFixedBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
         } else if (type === 'FRN') {
-            computeFloatingBondValue(valuationDate, frequency, faceValue, coupon, convention, maturity);
+            computeFloatingBondValue(description, issuerSpread, valuationDate, marketSpread, frequency, faceValue, indexation, coupon, convention, maturity);
         }
     });
     
+    function clearFields() {
+        $('#description').val('IRS');
+        $('#issuerSpread').val('');
+        $('#valuationDate').val('');
+        $('#faceValue').val('');
+        $('#marketSpread').val('');
+        $('#frequencies').val('30');
+        $('#notional').val('');
+        $('#indexation').val('MidSwapRate');
+        $('#coupon').val('');
+        $('#couponFloating').val('MidSwapRate');
+        $('#conventions').val('360');
+        $('#maturity').val('');
+    }
+    
     function setFieldsVisibility(type) {
         hideFields();
+        clearFields();
         if (type === 'FixedRB') {
             showFixedRBFields();
         } else if (type === 'FRN') {
