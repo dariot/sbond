@@ -146,6 +146,7 @@ $(document).ready(function() {
         var numDays = (maturity.getTime() - startDate.getTime()) / 86400000;
         var numReps = Math.ceil(numDays / frequency);
         var bondValue = 0;
+        logDebug += 'YEAR FRACTION -- SWAP RATE -- DISCOUNT FACTOR -- CASHFLOW -- BOND VALUE<div></div>';
         for (i = 0; i < numReps; i++) {
             if (endDate > maturity) {
                 endDate = maturity;
@@ -188,6 +189,7 @@ $(document).ready(function() {
         var numDays = (maturity.getTime() - startDate.getTime()) / 86400000;
         var numReps = Math.ceil(numDays / frequency);
         var bondValue = 0;
+        logDebug += 'YEAR FRACTION -- SWAP RATE -- DISCOUNT FACTOR -- CASHFLOW -- BOND VALUE<div></div>';
         for (i = 0; i < numReps; i++) {
             if (endDate > maturity) {
                 endDate = maturity;
