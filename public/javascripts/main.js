@@ -15,7 +15,7 @@ $(document).ready(function() {
         $('#valuationDateFG').show();
         $('#marketSpreadFG').show();
         $('#frequencyFG').show();
-        $('#notionalFG').show();
+        $('#faceValueFG').show();
         $('#indexationFG').show();
         $('#couponFloatingFG').show();
         $('#conventionFG').show();
@@ -30,7 +30,6 @@ $(document).ready(function() {
         $('#marketSpreadFG').hide();
         $('#frequencyFG').hide();
         $('#faceValueFG').hide();
-        $('#notionalFG').hide();
         $('#indexationFG').hide();
         $('#couponFG').hide();
         $('#couponFloatingFG').hide();
@@ -48,7 +47,6 @@ $(document).ready(function() {
         var faceValue = $('#faceValue').val();
         var marketSpread = $('#marketSpread').val();
         var frequency = $('#frequency').val();
-        var notional = $('#notional').val();
         var indexation = $('#indexation').val();
         var coupon = $('#coupon').val();
         var convention = $('#convention').val();
@@ -63,22 +61,16 @@ $(document).ready(function() {
             'faceValue': faceValue,
             'marketSpread': marketSpread,
             'frequency': frequency,
-            'notional': notional,
             'indexation': indexation,
             'coupon': coupon,
             'convention': convention,
             'maturity': maturity
         };
         
-        $.ajax({
-          type: 'POST',
-          data: {
-              prova: 'prova'
-          },
-          url: '/',
-          dataType: 'JSON'
-        }).done(function( response ) {
-            console.log(response);
+        $.post('/', bond).done(function (msg) {
+            console.log(msg);
+        }).fail(function (xhr, status, error) {
+            
         });
     });
     
@@ -88,7 +80,6 @@ $(document).ready(function() {
     }
     
     function getSwapRate(refDate) {
-        console.log(refDate);
         var swapRates = {
             '2019-07-18': -0.37,
             '2019-07-19': -0.37,
@@ -208,7 +199,7 @@ $(document).ready(function() {
             if (i < numReps - 1) {
                 cashFlow = (issuerSpread + swapRate) * 1000;
             } else {
-                cashFlow = notional;
+                cashFlow = faceValue;
             }
             
             bondValue += cashFlow * discountFactor;
@@ -251,12 +242,13 @@ $(document).ready(function() {
         $('#faceValue').val('');
         $('#marketSpread').val('');
         $('#frequencies').val('30');
-        $('#notional').val('');
         $('#indexation').val('MidSwapRate');
         $('#coupon').val('');
         $('#couponFloating').val('MidSwapRate');
         $('#conventions').val('360');
         $('#maturity').val('');
+
+        $('#debug').html('');
     }
     
     function setFieldsVisibility(type) {
