@@ -40,8 +40,7 @@ router.post('/', function(req, res, next) {
     }
     var output = JSON.parse(solc.compile(JSON.stringify(input)));
     var abi = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.abi;
-    var bytecode = '0x' + output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.evm.bytecode;
-    console.log(bytecode);
+    var bytecode = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.evm.bytecode;
     var gasEstimate = web3.eth.estimateGas({data: bytecode});
     var SmartBond = web3.eth.contract(JSON.parse(abi));
     
