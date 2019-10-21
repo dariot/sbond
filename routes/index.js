@@ -21,28 +21,28 @@ router.post('/', function(req, res, next) {
     
     web3.eth.getAccounts(function(err, res) {
         var firstAccount = res[0];
-    });
-    
-    var input = {
-        language: 'Solidity',
-        sources: {
-            'SmartBondLast.sol': {
-                content: fs.readFileSync('contracts/SmartBondLast.sol', 'utf-8')
-            }
-        },
-        settings: {
-            outputSelection: {
-                '*': {
-                    '*': [ '*' ]
+        
+        var input = {
+            language: 'Solidity',
+            sources: {
+                'SmartBondLast.sol': {
+                    content: fs.readFileSync('contracts/SmartBondLast.sol', 'utf-8')
+                }
+            },
+            settings: {
+                outputSelection: {
+                    '*': {
+                        '*': [ '*' ]
+                    }
                 }
             }
         }
-    }
-    var output = JSON.parse(solc.compile(JSON.stringify(input)));
-    var abi = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.abi;
-    var bytecode = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.evm.bytecode;
-    var gasEstimate = web3.eth.estimateGas({data: bytecode});
-    var SmartBond = web3.eth.contract(JSON.parse(abi));
+        var output = JSON.parse(solc.compile(JSON.stringify(input)));
+        var abi = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.abi;
+        var bytecode = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.evm.bytecode;
+        var SmartBond = new web3.eth.Contract(abi, firstAccount);
+        console.dir('aaaaaaa');
+    });
     
     res.status(200).send();
 });
