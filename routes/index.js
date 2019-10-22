@@ -19,8 +19,8 @@ router.post('/', function(req, res, next) {
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
     
-    web3.eth.getAccounts(function(err, res) {
-        var firstAccount = res[0];
+    web3.eth.getAccounts(function(err, result) {
+        var firstAccount = result[0];
         
         var input = {
             language: 'Solidity',
@@ -41,10 +41,10 @@ router.post('/', function(req, res, next) {
         var abi = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.abi;
         var bytecode = output.contracts['SmartBondLast.sol'].SmartBondOwnableReview.evm.bytecode;
         var SmartBond = new web3.eth.Contract(abi, firstAccount);
-        console.dir('aaaaaaa');
+        
+        res.status(200).send();
     });
     
-    res.status(200).send();
 });
 
 module.exports = router;
