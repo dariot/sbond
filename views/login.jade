@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    form(name="login" method='POST')
+        div.form-group(id='usernameFG')
+            label(for='username') Username:
+            input#issuerSpread.form-control(type='text', name='username')
+        div.form-group(id='passwordFG')
+            label(for='password') Password:
+            input#issuerSpread.form-control(type='text', name='password')
+        
+        div
+        
+        button#login Login
