@@ -2,14 +2,13 @@ extends layout
 
 block content
 
-    form(name="login" method='POST')
-        div.form-group(id='usernameFG')
-            label(for='username') Username:
-            input#issuerSpread.form-control(type='text', name='username')
-        div.form-group(id='passwordFG')
-            label(for='password') Password:
-            input#issuerSpread.form-control(type='text', name='password')
-        
-        div
-        
-        button#login Login
+    form
+        div(class='form-group row')
+            label(for='username' class='col-sm-1 col-form-label') Username
+            div
+                input.form-control#username(type='text')
+        div(class='form-group row')
+            label(for='username' class='col-sm-1 col-form-label') Password
+            div
+                input.form-control#username(type='password')
+        button(type="submit" class="btn btn-primary mb-2") Login

@@ -2,8 +2,10 @@ extends layout
 
 block content
 
-    form(name="searchBond" method='POST')
-        div.form-group(id='idFG')
-            label(for='id') ID:
-            input#issuerSpread.form-control(type='text', name='id')
-        button#lookup Lookup
+    form.form-inline
+        div(class='form-group mx-sm-3 mb-2')
+            label(for='username' class='col-sm-2 col-form-label') ID
+            input.form-control#id(type='text', name='id')
+        button(class='btn btn-primary mb-2')#lookup Lookup
+        
+    

@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('issuer', { title: 'Issuer Dashboard' });
+    var id = req.query.id;
+    if (id) {
+        //todo
+    } else {
+        res.render('issuer', { title: 'Issuer Dashboard' });
+    }
 });
 
 module.exports = router;
