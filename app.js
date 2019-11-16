@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var MongoClient = require('mongodb').MongoClient;
+var mongoose = require('mongoose');
 var DateDiff = require('date-diff');
 var cors = require('express-cors');
 
@@ -113,7 +114,33 @@ function testOracle() {
         db.collection('DATI_ORACOLO').insertMany([riga01, riga02], insertCallback);
     });
 }
-//testOracle();
+testOracle();
+
+function initDB() {
+    var mongodbOptions = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    };
+    mongoose.connect('mongodb://localhost:27017/test', mongodbOptions);
+    const User = mongoose.model('User', {
+        username: String,
+        password: String,
+        type: String
+    });
+    const issuer = new User({
+        username: 'issuer',
+        password: 'pass',
+        type: 'I'
+    });
+    issuer.save();
+    const viewer = new User({
+        username: 'viewer',
+        password: 'pass',
+        type: 'V'
+    });
+    viewer.save();
+}
+initDB();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

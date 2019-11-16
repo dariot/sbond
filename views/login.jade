@@ -2,13 +2,13 @@ extends layout
 
 block content
 
-    form
+    form(method='post')
         div(class='form-group row')
             label(for='username' class='col-sm-1 col-form-label') Username
             div
                 input.form-control#username(type='text')
         div(class='form-group row')
-            label(for='username' class='col-sm-1 col-form-label') Password
+            label(for='password' class='col-sm-1 col-form-label') Password
             div
-                input.form-control#username(type='password')
+                input.form-control#password(type='password')
         button(type="submit" class="btn btn-primary mb-2") Login
