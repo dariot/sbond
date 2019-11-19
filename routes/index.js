@@ -16,9 +16,9 @@ router.post('/', function(req, res, next) {
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
     } else {
-        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
     }
-    
+
     web3.eth.getAccounts(function(err, result) {
         var firstAccount = result[0];
         

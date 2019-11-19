@@ -19,7 +19,12 @@ router.post('/', function(req, res, next) {
     var db = mongoose.connection;
     db.on('error', console.error.bind('connection error:'));
     db.once('open', function() {
-        /* todo */
+        var document = db.collections.users.findOne({
+            username: username
+        });
+        if (document) {
+            console.log(document);
+        }
     });
 });
 
