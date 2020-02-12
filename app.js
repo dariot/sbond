@@ -122,18 +122,19 @@ function initDB() {
         useUnifiedTopology: true
     };
     mongoose.connect('mongodb://localhost:27017/test', mongodbOptions);
-    const User = mongoose.model('User', {
+    var userSchema = new mongoose.Schema({
         username: String,
         password: String,
         type: String
     });
-    const issuer = new User({
+    var User = mongoose.model('User', userSchema);
+    var issuer = new User({
         username: 'issuer',
         password: 'pass',
         type: 'I'
     });
     issuer.save();
-    const viewer = new User({
+    var viewer = new User({
         username: 'viewer',
         password: 'pass',
         type: 'V'

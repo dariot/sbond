@@ -21,10 +21,15 @@ router.post('/', function(req, res, next) {
     db.once('open', function() {
         var document = db.collections.users.findOne({
             username: username
+        }).exec(function(err, res) {
+            if (err) {
+                throw err;
+            }
+            if (res) {
+                console.log(res);
+            }
+            res.status(200).send();
         });
-        if (document) {
-            console.log(document);
-        }
     });
 });
 

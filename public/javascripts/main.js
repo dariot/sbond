@@ -43,10 +43,9 @@ $(document).ready(function() {
         var description = $('#description').val();
         var issuerSpread = $('#issuerSpread').val();
         var valuationDate = $('#valuationDate').val();
-        var frequency = $('#frequency').val();
+        var frequency = $('#frequencies').val();
         var faceValue = $('#faceValue').val();
         var marketSpread = $('#marketSpread').val();
-        var frequency = $('#frequency').val();
         var indexation = $('#indexation').val();
         var coupon = $('#coupon').val();
         var convention = $('#convention').val();
@@ -224,7 +223,6 @@ $(document).ready(function() {
         var frequency = $('#frequencies').val();
         var faceValue = $('#faceValue').val();
         var marketSpread = $('#marketSpread').val();
-        var frequency = $('#frequencies').val();
         var indexation = $('#indexation').val();
         var coupon = $('#coupon').val();
         var convention = $('#conventions').val();
