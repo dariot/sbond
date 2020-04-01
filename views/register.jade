@@ -1,7 +1,7 @@
 extends layout
 
 block extraHead
-    script(src='/javascripts/login.js')
+    script(src='/javascripts/register.js')
 
 block content
 
@@ -14,6 +14,8 @@ block content
             label(for='password' class='col-sm-1 col-form-label') Password
             div
                 input.form-control#password(type='password'  name='password')
-        button(type="submit" class="btn btn-primary mb-2") Login
-    
-    button(id="register" class="btn btn-primary mb-2") Register
+        div(class='form-group row')
+            label(for='repeat-password' class='col-sm-1 col-form-label') Repeat password
+            div
+                input.form-control#password(type='password'  name='repeat-password')
+        button(id="register" class="btn btn-primary mb-2") Register

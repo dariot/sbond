@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.13;
 
 /** Estendo il contratto Ownable (in questa modalità si crea sempre un indirizzo del contratto)
  * Prefissi utilizzati per le variabili:
@@ -43,19 +43,19 @@ contract SmartBond {
      * Esempio stringa di inizializzazione SmartBond:
      * 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c,1000,800,2,6,1571097600
      */
-    constructor () public {
+    constructor (address payable _addrBeneficiary, uint _capitalEuro, uint _interestEuro, uint _years, uint _frequency, uint _startDate) public {
         addressOwner = msg.sender;
         fixedNumOne = fixed1();
         
         // Inizializzazione variabili
-        //addressBeneficiary = _addrBeneficiary;
-        //fixedEuroCapitalValue = newFixed(_capitalEuro);
-        //timestampStartDate = timestampToParsedTimestamp(_startDate);
+        addressBeneficiary = _addrBeneficiary;
+        fixedEuroCapitalValue = newFixed(_capitalEuro);
+        timestampStartDate = timestampToParsedTimestamp(_startDate);
         // Calcolo il numero totale di cedole da pagare (in valori fixed point)
-        //fixedNumCedole = integer(multiply(calcNumCedoleToPayPerYearFixed(newFixed(_frequency)), newFixed(_years)));
+        fixedNumCedole = integer(multiply(calcNumCedoleToPayPerYearFixed(newFixed(_frequency)), newFixed(_years)));
         // Calcolo il valore della singola cedola in Euro (in valori fixed point)
-        //fixedEuroCedolaValue = newFixed(newFixed(_interestEuro)/fixedNumCedole);
-        //calcPaymentsDate(_frequency);
+        fixedEuroCedolaValue = newFixed(newFixed(_interestEuro)/fixedNumCedole);
+        calcPaymentsDate(_frequency);
     }
 
     /** 
