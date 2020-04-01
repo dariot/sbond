@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    /*
     var username = req.body.username;
     var password = req.body.password;
     
@@ -19,6 +18,8 @@ router.post('/', function(req, res, next) {
     var db = mongoose.connection;
     db.on('error', console.error.bind('connection error:'));
     db.once('open', function() {
+        console.log(db.collections.users);
+        /*
         var document = db.collections.users.findOne({
             username: username
         }).exec(function(err, res) {
@@ -30,8 +31,8 @@ router.post('/', function(req, res, next) {
             }
             res.status(200).send();
         });
+        */
     });
-    */
 });
 
 module.exports = router;

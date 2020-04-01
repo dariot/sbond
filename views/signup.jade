@@ -9,13 +9,13 @@ block content
         div(class='form-group row')
             label(for='username' class='col-sm-1 col-form-label') Username
             div
-                input.form-control#username(type='text' name='username')
+                input.form-control#username(type='text' name='username' required)
         div(class='form-group row')
             label(for='password' class='col-sm-1 col-form-label') Password
             div
-                input.form-control#password(type='password'  name='password')
+                input.form-control#password(type='password'  name='password' required)
         div(class='form-group row')
             label(for='repeat-password' class='col-sm-1 col-form-label') Repeat password
             div
-                input.form-control#password(type='password'  name='repeat-password')
+                input.form-control#password(type='password'  name='repeat-password' required)
         button(id="signup" class="btn btn-primary mb-2") Sign up
