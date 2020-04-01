@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 router.get('/', function(req, res, next) {
-    res.render('register', { title: 'Register' });
+    res.render('signup', { title: 'Sign up' });
 });
 
 router.post('/', function(req, res, next) {
