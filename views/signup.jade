@@ -6,6 +6,9 @@ block extraHead
 block content
 
     form(method='post')
+        div
+            label(class="radio-inline")
+                input.form-control#type(type="radio" name="optradio" checked) Option 1
         div(class='form-group row')
             label(for='username' class='col-sm-1 col-form-label') Username
             div
@@ -14,8 +17,7 @@ block content
             label(for='password' class='col-sm-1 col-form-label') Password
             div
                 input.form-control#password(type='password'  name='password' required)
-        div(class='form-group row')
-            label(for='repeat-password' class='col-sm-1 col-form-label') Repeat password
-            div
-                input.form-control#password(type='password'  name='repeat-password' required)
+        
+        button(id="cancel" class="btn btn-primary mb-2") Cancel
+        
         button(id="signup" class="btn btn-primary mb-2") Sign up

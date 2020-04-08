@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    var newUser = {
+        username: username,
+        password: password
+    };
     
     var mongodbOptions = {
         useNewUrlParser: true,
@@ -18,20 +22,9 @@ router.post('/', function(req, res, next) {
     var db = mongoose.connection;
     db.on('error', console.error.bind('connection error:'));
     db.once('open', function() {
-        console.log(db.collections.users);
-        /*
-        var document = db.collections.users.findOne({
-            username: username
-        }).exec(function(err, res) {
-            if (err) {
-                throw err;
-            }
-            if (res) {
-                console.log(res);
-            }
-            res.status(200).send();
-        });
-        */
+        var users = db.collections.users;
+        users.insertOne(newUser);
+        res.status(200).send();
     });
 });
 

@@ -8,8 +8,11 @@ $(document).ready(function() {
             password: password
         };
         
-        console.log(data);
-        
         $.post('/signup', data);
+    });
+    
+    $('#cancel').click(function() {
+        $('#username').val('');
+        $('#password').val('');
     });
 });

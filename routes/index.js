@@ -25,8 +25,8 @@ router.post('/', function(req, res, next) {
     } else {
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
-
-    web3.eth.getAccounts(function(err, result) {
+    
+    web3.eth.getAccounts().then(function(result) {
         var senderAddress = result[0];
         var beneficiaryAddress = result[1];
         
@@ -45,7 +45,11 @@ router.post('/', function(req, res, next) {
                 }
             }
         }
-        var compiledContract = JSON.parse(solc.compile(JSON.stringify(input)));
+        var inputStr = JSON.stringify(input);
+        var compiled = solc.compile(inputStr);
+        console.log(compiled);
+        var compiledContract = JSON.parse(compiled);
+        console.log(3);
         
         var abi = compiledContract.contracts['SmartBond_v7.sol'].SmartBond.abi;
         var bytecode = compiledContract.contracts['SmartBond_v7.sol'].SmartBond.evm.bytecode.object;
