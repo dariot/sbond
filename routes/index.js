@@ -23,18 +23,20 @@ router.post('/', function(req, res, next) {
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
     } else {
-        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
     }
     
     web3.eth.getAccounts().then(function(result) {
+        var smartContractName = 'SmartBond_v7.sol';
         var senderAddress = result[0];
         var beneficiaryAddress = result[1];
         
+        var content = fs.readFileSync('contracts/' + smartContractName, 'utf-8');
         var input = {
             language: 'Solidity',
             sources: {
                 'SmartBond_v7.sol': {
-                    content: fs.readFileSync('contracts/SmartBond_v7.sol', 'utf-8')
+                    content: content
                 }
             },
             settings: {
@@ -44,15 +46,26 @@ router.post('/', function(req, res, next) {
                     }
                 }
             }
-        }
-        var inputStr = JSON.stringify(input);
+        };
+		
+		var inputStr = JSON.stringify(input);
+		console.log(1);
         var compiled = solc.compile(inputStr);
-        console.log(compiled);
-        var compiledContract = JSON.parse(compiled);
-        console.log(3);
+
+        fs.writeJsonSync('compiled.txt', compiled);
+        //var compiledContract = JSON.parse(compiled);
+		
+        if (compiled.errors) {
+			console.log(compiled.errors);
+			return;
+		}
+		
+		var compiledContract = JSON.parse(compiled);
         
-        var abi = compiledContract.contracts['SmartBond_v7.sol'].SmartBond.abi;
-        var bytecode = compiledContract.contracts['SmartBond_v7.sol'].SmartBond.evm.bytecode.object;
+        var abi = compiledContract.contracts[smartContractName].SmartBond.abi;
+		fs.writeJsonSync('abi.txt', abi);
+        var bytecode = compiledContract.contracts[smartContractName].SmartBond.evm.bytecode.object;
+		fs.outputFileSync('bytecode.txt', bytecode);
         var gasEstimate = web3.eth.estimateGas({
             to: beneficiaryAddress,
             data: bytecode
@@ -60,13 +73,16 @@ router.post('/', function(req, res, next) {
         var SmartBond = new web3.eth.Contract(abi);
         
         var deployArgs = [beneficiaryAddress, faceValue, 800, years, frequency, startDateUnixTime];
+		
+		var testDeployArgs = [beneficiaryAddress, 1000, 800, 2, 6, 1571097600];
+		console.log(testDeployArgs);
         
         SmartBond.deploy({
-            data: bytecode
+			data: bytecode,
+            arguments: testDeployArgs
         }).send({
             from: senderAddress,
-            gasPrice: 40000000,
-            gasLimit: 4000000
+            gas: '4700000'
         }, function(err, transactionHash) {
             if (err) {
                 console.log(err);

@@ -2,68 +2,72 @@ extends layout
 
 block content
 
-    form(name="smartbond" method='POST')
-        div.form-group
-            label(for='type') Type:
-            select(name='types', id='types')
-                option FixedRB
-                option FRN
-        div.form-group(id='descriptionFG')
-            label(for='description') Description:
-            select(name='description', id='description')
-                option(value="FRN") FRN
-                option(value="IRS") IRS
-        div.form-group(id='issuerSpreadFG')
-            label(for='issuerSpread') Issuer Spread:
-            input#issuerSpread.form-control(type='text', name='issuerSpread')
-        div.form-group(id='valuationDateFG')
-            label(for='valuationDate') Valuation Date:
-            input#valuationDate.form-control(type='date' name='valuationDate')
-        div.form-group(id='marketSpreadFG')
-            label(for='marketSpread') Market Spread:
-            input#marketSpread.form-control(type='text' name='marketSpread')
-        div.form-group(id='frequencyFG')
-            label(for='frequency') Frequency:
-            select(name='frequencies', id='frequencies')
-                option(value="30") 1m
-                option(value="60") 2m
-                option(value="90") 3m
-                option(value="120") 4m
-                option(value="150") 5m
-                option(value="180") 6m
-                option(value="360") 12m
-        div.form-group(id='faceValueFG')
-            label(for='faceValue') Face Value:
-            input#faceValue.form-control(type='text' name='faceValue')
-        div.form-group(id='indexationFG')
-            label(for='indexation') Indexation:
-            select(name='indexation', id='indexation')
-                option(value="MidSwapRate") MidSwapRate
-        div.form-group(id='couponFG')
-            label(for='coupon') Coupon (%):
-            input#coupon.form-control(type='text' name='coupon')
-        div.form-group(id='couponFloatingFG')
-            label(for='couponFloating') Coupon:
-            select(name='couponFloating', id='couponFloating')
-                option(value="MidSwapRate") (MidSwapRate + Spread) x FaceValue
-        div.form-group(id='conventionFG')
-            label(for='convention') Convention:
-            select(name='conventions', id='conventions')
-                option(value="360") ACT/360
-                option(value="364") ACT/364
-                option(value="365") ACT/365
-                option(value="366") ACT/366
-        div.form-group(id='maturityFG')
-            label(for='maturity') Maturity:
-            input#maturity.form-control(type='date' name='maturity')
-        
-        div
-        
-        button#calculate Calculate Smart Bond Price
-        
-        div
-        
-        button#deploy Deploy Smart Bond
-        
-        div
-        div#debug
+	form(name="smartbond" method='POST')
+		div.form-group
+			label(for='type') Type:
+			select(name='types', id='types')
+				option FixedRB
+				option FRN
+		div.form-group(id='descriptionFG')
+			label(for='description') Description:
+			select(name='description', id='description')
+				option(value="FRN") FRN
+				option(value="IRS") IRS
+		div.form-group(id='issuerSpreadFG')
+			label(for='issuerSpread') Issuer Spread:
+			input#issuerSpread.form-control(type='text', name='issuerSpread')
+		div.form-group(id='valuationDateFG')
+			label(for='valuationDate') Valuation Date:
+			input#valuationDate.form-control(type='date' name='valuationDate')
+		div.form-group(id='marketSpreadFG')
+			label(for='marketSpread') Market Spread:
+			input#marketSpread.form-control(type='text' name='marketSpread')
+		div.form-group(id='frequencyFG')
+			label(for='frequency') Frequency:
+			select(name='frequencies', id='frequencies')
+				option(value="30") 1m
+				option(value="60") 2m
+				option(value="90") 3m
+				option(value="120") 4m
+				option(value="150") 5m
+				option(value="180") 6m
+				option(value="360") 12m
+		div.form-group(id='faceValueFG')
+			label(for='faceValue') Face Value:
+			input#faceValue.form-control(type='text' name='faceValue')
+		div.form-group(id='indexationFG')
+			label(for='indexation') Indexation:
+			select(name='indexation', id='indexation')
+				option(value="MidSwapRate") MidSwapRate
+		div.form-group(id='couponFG')
+			label(for='coupon') Coupon (%):
+			input#coupon.form-control(type='text' name='coupon')
+		div.form-group(id='couponFloatingFG')
+			label(for='couponFloating') Coupon:
+			select(name='couponFloating', id='couponFloating')
+				option(value="MidSwapRate") (MidSwapRate + Spread) x FaceValue
+		div.form-group(id='conventionFG')
+			label(for='convention') Convention:
+			select(name='conventions', id='conventions')
+				option(value="360") ACT/360
+				option(value="364") ACT/364
+				option(value="365") ACT/365
+				option(value="366") ACT/366
+		div.form-group(id='maturityFG')
+			label(for='maturity') Maturity:
+			input#maturity.form-control(type='date' name='maturity')
+		
+		div
+		
+		button#calculate Calculate Smart Bond Price
+		
+		div
+		
+		button#deploy Deploy Smart Bond
+		
+		div
+		
+		button#testDeploy Test deploy
+		
+		div
+		div#debug

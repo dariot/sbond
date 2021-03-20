@@ -1,5 +1,4 @@
-//pragma solidity ^0.5.13;
-pragma solidity ^0.4.1;
+pragma solidity 0.5.13;
 
 /** Estendo il contratto Ownable (in questa modalità si crea sempre un indirizzo del contratto)
  * Prefissi utilizzati per le variabili:
@@ -721,5 +720,3 @@ contract SmartBond {
     }
     // ---------- End SBUtilityLib Library ------------
 }
-
-

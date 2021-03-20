@@ -1,0 +1,218 @@
+[
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "depositEther",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "killSmartBond",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_euroEtherValue",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_timestampRequest",
+				"type": "uint256"
+			}
+		],
+		"name": "tryToPay",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "OperationResult",
+				"type": "string"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_addrBeneficiary",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_capitalEuro",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_interestEuro",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_years",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_frequency",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_startDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "updateSmartBondStaus",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetFEthBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "FixedEtherBalance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetFEuroCapital",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "FixedEuroCapitalValue",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetFEuroCedolaValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "FixedEuroCedolaValue",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetFNumCedole",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "FixedNumCedole",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "zdebugGetPaymentsDate",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "PaymentDateObject",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetRealEthBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "RealEtherBalance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetREtherCapitalValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "RealEtherCapitalValue",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "zdebugGetREtherCedolaValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "RealEtherCedolaValue",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
