@@ -11,4 +11,8 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/issue', function(req, res, next) {
+    console.log('issue');
+});
+
 module.exports = router;

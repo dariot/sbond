@@ -40,9 +40,7 @@ router.post('/', function(req, res, next) {
         }).then(function(user) {
 			var validLogin = isValidLogin(user, username, password);
 			if (validLogin) {
-				res.json({
-					message: 'Login successful'
-				});
+				renderBondView(user);
 			}
 		});
     });
@@ -67,6 +65,13 @@ router.post('/', function(req, res, next) {
 		
 		isValidLogin = true;
 		return isValidLogin;
+	}
+	
+	function renderBondView(user) {
+		var path = __dirname.replace('routes', 'views');
+		if (user.type === 'I') {
+			res.render(path + '/issuer.jade');
+		}
 	}
 });
 

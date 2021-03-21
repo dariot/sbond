@@ -1,5 +1,8 @@
 extends layout
 
+block extraHead
+    script(src='/javascripts/issuer.js')
+
 block content
 
     form.form-inline
@@ -8,4 +11,10 @@ block content
             input.form-control#id(type='text', name='id')
         button(class='btn btn-primary mb-2')#lookup Lookup
         
+    div
+        
+    button(class='btn btn-primary mb-2')#issue Issue
     
+    div
+    
+    button(class='btn btn-primary mb-2')#revoke Revoke
