@@ -10,6 +10,22 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+	
+	if (!username) {
+		return res.status(422).json({
+			errors: {
+				message: 'please write username'
+			}
+		});
+	}
+	
+	if (!password) {
+		res.json({
+			errors: {
+				message: 'please write password'
+			}
+		});
+	}
     
     var mongodbOptions = {
         useNewUrlParser: true,
@@ -19,18 +35,39 @@ router.post('/', function(req, res, next) {
     var db = mongoose.connection;
     db.on('error', console.error.bind('connection error:'));
     db.once('open', function() {
-        var document = db.collections.users.findOne({
+		db.collections.users.findOne({
             username: username
-        }).exec(function(err, res) {
-            if (err) {
-                throw err;
-            }
-            if (res) {
-                console.log(res);
-            }
-            res.status(200).send();
-        });
+        }).then(function(user) {
+			var validLogin = isValidLogin(user, username, password);
+			if (validLogin) {
+				res.json({
+					message: 'Login successful'
+				});
+			}
+		});
     });
+	
+	function isValidLogin(user, inputUsr, inputPwd) {
+		var isValidLogin = false;
+		if (!user) {
+			res.json({
+				errors: {
+					message: 'username not found'
+				}
+			});
+		}
+		
+		if (user.password !== inputPwd) {
+			res.json({
+				errors: {
+					message: 'invalid password'
+				}
+			});
+		}
+		
+		isValidLogin = true;
+		return isValidLogin;
+	}
 });
 
 module.exports = router;
