@@ -10,7 +10,7 @@
     "cors": "^2.8.5",
     "date-diff": "^0.2.1",
     "debug": "~2.6.9",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-cors": "0.0.3",
     "fs-extra": "^9.0.0",
     "http-errors": "~1.6.2",
